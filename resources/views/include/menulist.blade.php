@@ -1,6 +1,7 @@
 <ul class="{{ $nav_classes }}">
-    <li><a href="/home">Startseite</a></li>
-    <li><a href="/persons">Personen verwalten</a></li>
-    <li><a href="/groups">Gruppen verwalten</a></li>
-    <li><a href="/triggers">Auslöser verwalten</a></li>
+    {{ HTML::nav_link('home', 'Startseite') }}
+    <!--<li><a href="{{ url('home') }}">Startseite</a></li>-->
+    <li><a href="{{ url('persons') }}">Personen verwalten</a></li>
+    <li><a href="{{ url('groups') }}">Gruppen verwalten</a></li>
+    <li><a href="{{ url('triggers') }}">Auslöser verwalten</a></li>
 </ul>

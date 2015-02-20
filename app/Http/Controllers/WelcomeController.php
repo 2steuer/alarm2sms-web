@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+		return view('layout.master', array('title'=>'Startseite'));
 	}
 
 }
