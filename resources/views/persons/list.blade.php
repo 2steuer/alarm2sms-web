@@ -1,4 +1,4 @@
-@extends('master')
+@extends('persons.main')
 
 @section('content')
 

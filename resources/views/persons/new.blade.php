@@ -1,4 +1,4 @@
-@extends('master')
+@extends('persons.main')
 
 @section('content')
 
@@ -29,8 +29,12 @@
 </div>
 
 <div class="form-group">
-    <div class="col-sm-12">
-        {!! Form::submit('Person anlegen', ['class'=>'btn btn-primary form-control']) !!}
+    <div class="col-sm-6">
+        <input type="submit" name="submit_new" value="Anlegen und neu" class="btn btn-default form-control" />
+    </div>
+
+    <div class="col-sm-6">
+        <input type="submit" name="submit_show" value="Anlegen und anzeigen" class="btn btn-primary form-control" />
     </div>
 </div>
 

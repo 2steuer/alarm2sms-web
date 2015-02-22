@@ -11,11 +11,11 @@ class PersonsController extends Controller {
     public function index() {
         $persons = Person::all();
 
-        return view('persons.list', array('title' => 'Personen', 'persons' => $persons));
+        return view('persons.list', array('title' => 'Personen', 'persons' => $persons, 'show_subnav' => true));
     }
 
     public function newform() {
-        return view('persons.new', array('title' => 'Person hinzufügen'));
+        return view('persons.new', array('title' => 'Person hinzufügen', 'show_subnav' => true));
     }
 
 }

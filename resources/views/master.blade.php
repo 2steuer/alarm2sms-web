@@ -39,6 +39,10 @@
         </div>
 
         <div class="col-sm-9 col-xs-12">
+            @if($show_subnav)
+                @yield('subnav')
+            @endif
+
             <h2>{{ $title }}</h2>
             @yield('content')
         </div>
