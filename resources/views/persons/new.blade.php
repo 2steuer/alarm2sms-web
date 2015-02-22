@@ -2,7 +2,7 @@
 
 @section('content')
 
-{!! Form::open(['class'=>'form-horizontal']) !!}
+{!! Form::open(['url' => 'persons/new', 'class'=>'form-horizontal']) !!}
 
 <div class="form-group">
     {!! Form::label('name', 'Name', ['class'=>'col-sm-2 form-label']) !!}
@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-sm-6">
-        <input type="submit" name="submit_show" value="Anlegen und anzeigen" class="btn btn-primary form-control" />
+        <input type="submit" name="submit_list" value="Anlegen und auflisten" class="btn btn-primary form-control" />
     </div>
 </div>
 

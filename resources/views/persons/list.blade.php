@@ -12,8 +12,8 @@
 
     @foreach($persons as $person)
         <tr>
-            <td>$person->name</td>
-            <td>$person->number</td>
+            <td>{{ $person->name }}</td>
+            <td>{{ $person->number }}</td>
         </tr>
     @endforeach
 </table>
