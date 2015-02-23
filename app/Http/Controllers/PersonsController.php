@@ -7,9 +7,18 @@ use Session;
 
 use App\Models\Person;
 
-class PersonsController extends Controller {
+class PersonsController extends CrudController {
 
-    public function index() {
+    public function __construct(Person $model) {
+        $this->model = $model;
+        $this->singular = 'person';
+        $this->plural = 'persons';
+        $this->humanName = 'Person';
+        
+    }
+
+
+    /*public function index() {
         $persons = Person::orderBy('name', 'asc')->get();
 
         return view('persons.list', array('title' => 'Personen', 'persons' => $persons, 'show_subnav' => true));
@@ -82,5 +91,5 @@ class PersonsController extends Controller {
         Session::flash('flash_message', 'Die Person '. $name . ' wurde aus dem System gelöscht.');
 
         return redirect()->route('persons.index');
-    }
+    }*/
 }
