@@ -44,6 +44,10 @@
                 @yield('subnav')
             @endif
 
+            @if(Session::has('flash_message'))
+            <div class="alert {{ Session::has('flash_message_class') ? Session::get('flash_message_class') : 'alert-success' }}">{{ Session::get('flash_message') }}</div>
+            @endif
+
             <h2>{{ $title }}</h2>
             @yield('content')
         </div>

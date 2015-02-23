@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Request;
+use Session;
 
 use App\Models\Person;
 
@@ -28,6 +29,8 @@ class PersonsController extends Controller {
         }
 
         Person::create($data);
+
+        Session::flash('flash_message', 'Person angelegt.');
 
         if(Request::has('submit_list')) {
             return redirect()->action('PersonsController@index');
@@ -58,7 +61,26 @@ class PersonsController extends Controller {
 
         $person->update($data);
 
+        Session::flash('flash_message', 'Änderungen gespeichert.');
+
         return redirect()->route('persons.index');
     }
 
+    //Delete an existing person
+    public function delete($id) {
+        $person = Person::findOrFail($id);
+
+        return view('persons.delete', ['title' => 'Person löschen', 'show_subnav' => false, 'person'=>$person]);
+    }
+
+    public function destroy($id) {
+        $person = Person::findOrFail($id);
+        $name = $person->name;
+
+        $person->delete();
+
+        Session::flash('flash_message', 'Die Person '. $name . ' wurde aus dem System gelöscht.');
+
+        return redirect()->route('persons.index');
+    }
 }
