@@ -1,7 +1,7 @@
 @extends('triggers.main')
 
 @section('content')
-<p class="text-danger">Den Auslöser <b>{{ $group->name }}</b> wirklich aus dem System löschen?</p>
+<p class="text-danger">Den Auslöser <b>{{ $trigger->name }}</b> wirklich aus dem System löschen?</p>
 {!! Form::open(['route' => ['triggers.destroy', $trigger->id], 'method' => 'delete', 'class'=>'form-horizontal']) !!}
 
 <div class="form-group">

@@ -17,12 +17,14 @@ class FirstInstall extends Migration {
                 $table->string('name');
                 $table->string('number');
                 $table->boolean('flash');
+                $table->timestamps();
             });
 
         Schema::create('groups', function(Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->text('description');
+                $table->timestamps();
             });
 
         Schema::create('group_person', function(Blueprint $table) {
@@ -37,6 +39,8 @@ class FirstInstall extends Migration {
                 $table->increments('id');
                 $table->string('name');
                 $table->text('description');
+                $table->text('trigger_text');
+                $table->timestamps();
             });
 
         Schema::create('triggerslots', function(Blueprint $table) {
@@ -45,8 +49,9 @@ class FirstInstall extends Migration {
                 $table->integer('weekday');
                 $table->time('start');
                 $table->time('end');
-                $table->integer('trigger_id')->unsigned();
+                $table->integer('trigger_id')->unsigned()->nullable()->default(null);
                 $table->foreign('trigger_id')->references('id')->on('triggers');
+                $table->timestamps();
             });
 
         Schema::create('group_triggerslot', function(Blueprint $table) {

@@ -117,6 +117,8 @@ abstract class CrudController extends Controller {
 		$obj = $this->model->findOrFail($id);
         $name = $obj->name;
 
+        $this->beforeDelete($obj);
+
         $obj->delete();
 
         Session::flash('flash_message', $this->humanName." $name gelöscht.");
@@ -126,6 +128,10 @@ abstract class CrudController extends Controller {
 
     public function delete($id) {
         return view($this->plural.'.delete', [$this->singular => $this->model->findOrFail($id)]);
+    }
+
+    protected function beforeDelete($obj) {
+
     }
 
 }
