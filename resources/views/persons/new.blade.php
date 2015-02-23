@@ -1,7 +1,9 @@
 @extends('persons.main')
 
-@section('content')
+@section('title') Person anlegen @stop
 
+@section('content')
+<h2>Person anlegen</h2>
 {!! Form::open(['action' => 'PersonsController@store', 'method'=>'post', 'class'=>'form-horizontal']) !!}
 
 @include('persons.partials.form')

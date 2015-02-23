@@ -15,9 +15,9 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('flash', 'Flash-SMS verwenden', ['class'=>'col-sm-2 form-label']) !!}
+    {!! Form::label('flash', 'Flash-SMS verwenden?', ['class'=>'col-sm-2 form-label']) !!}
 
     <div class="col-sm-10">
-        {!! Form::checkbox('flash', '1', true) !!}
+        {!! Form::select('flash', ['0' => 'Nein', '1' => 'Ja'], '1', ['class' => 'form-control']) !!}
     </div>
 </div>

@@ -1,6 +1,10 @@
 @extends('persons.main')
 
+@section('title') Bearbeiten @stop
+
 @section('content')
+
+<h2>Person bearbeiten</h2>
 
 {!! Form::model($person, ['route' => array('persons.update', $person->id), 'method' => 'put', 'class'=>'form-horizontal']) !!}
 

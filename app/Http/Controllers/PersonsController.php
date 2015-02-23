@@ -14,7 +14,7 @@ class PersonsController extends CrudController {
         $this->singular = 'person';
         $this->plural = 'persons';
         $this->humanName = 'Person';
-        
+
     }
 
 

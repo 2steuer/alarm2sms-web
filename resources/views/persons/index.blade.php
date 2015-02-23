@@ -1,6 +1,10 @@
 @extends('persons.main')
 
+@section('title') Personen @stop
+
 @section('content')
+
+<h2>Personen</h2>
 
 <table class="table table-striped">
     <thead>

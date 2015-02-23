@@ -4,7 +4,7 @@
         <base href="{{ env('BASE_PATH') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ env('SITE_TITLE') }} &raquo; {{ $title }}</title>
+        <title>@yield('title', 'Seite') &laquo; {{ env('SITE_TITLE') }} </title>
 
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     </head>
@@ -40,15 +40,12 @@
         </div>
 
         <div class="col-sm-9 col-xs-12">
-            @if($show_subnav)
-                @yield('subnav')
-            @endif
+            @yield('subnav')
 
             @if(Session::has('flash_message'))
             <div class="alert {{ Session::has('flash_message_class') ? Session::get('flash_message_class') : 'alert-success' }}">{{ Session::get('flash_message') }}</div>
             @endif
 
-            <h2>{{ $title }}</h2>
             @yield('content')
         </div>
     </div>
