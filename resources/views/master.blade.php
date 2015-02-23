@@ -4,7 +4,7 @@
         <base href="{{ env('BASE_PATH') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title', 'Seite') &laquo; {{ env('SITE_TITLE') }} </title>
+        <title>@yield('title', 'Seite') &raquo; {{ env('SITE_TITLE') }} </title>
 
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     </head>

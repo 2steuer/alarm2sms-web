@@ -1,4 +1,6 @@
-<?php
+<?php namespace App\Models;
+
+use Eloquent;
 
 class TriggerSlot extends Eloquent {
 

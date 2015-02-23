@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Models;
+
+use Eloquent;
+
 class Group extends Eloquent {
 
     protected $fillable = ['name', 'description'];
