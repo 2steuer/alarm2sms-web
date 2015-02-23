@@ -20,6 +20,10 @@ Route::get('persons/{id}/delete', ['as' => 'persons.delete', 'uses'=>'PersonsCon
 Route::resource('groups', 'GroupsController');
 Route::get('groups/{id}/delete', ['as' => 'groups.delete', 'uses'=>'GroupsController@delete']);
 
+Route::resource('triggers', 'TriggersController');
+Route::get('triggers/{id}/delete', ['as' => 'triggers.delete', 'uses'=>'TriggersController@delete']);
+
+
 /*Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

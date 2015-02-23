@@ -1,18 +1,18 @@
-@extends('groups.main')
+@extends('triggers.main')
 
-@section('title') Gruppe Bearbeiten @stop
+@section('title') Auslöser Bearbeiten @stop
 
 @section('content')
 
-<h2>Gruppe bearbeiten</h2>
+<h2>Auslöser bearbeiten</h2>
 
-{!! Form::model($group, ['route' => array('groups.update', $group->id), 'method' => 'put', 'class'=>'form-horizontal']) !!}
+{!! Form::model($trigger, ['route' => array('triggers.update', $trigger->id), 'method' => 'put', 'class'=>'form-horizontal']) !!}
 
-@include('groups.partials.form')
+@include('triggers.partials.form')
 
 <div class="form-group">
     <div class="col-sm-6">
-        <a href="{{ route('groups.index') }}" class="btn btn-default form-control">Zurück</a>
+        <a href="{{ route('triggers.index') }}" class="btn btn-default form-control">Zurück</a>
     </div>
 
     <div class="col-sm-6">

@@ -1,8 +1,8 @@
-@extends('groups.main')
+@extends('triggers.main')
 
 @section('content')
-<p class="text-danger">Die Gruppe <b>{{ $group->name }}</b> wirklich aus dem System löschen?</p>
-{!! Form::open(['route' => ['groups.destroy', $group->id], 'method' => 'delete', 'class'=>'form-horizontal']) !!}
+<p class="text-danger">Den Auslöser <b>{{ $group->name }}</b> wirklich aus dem System löschen?</p>
+{!! Form::open(['route' => ['triggers.destroy', $trigger->id], 'method' => 'delete', 'class'=>'form-horizontal']) !!}
 
 <div class="form-group">
     <div class="col-sm-6">
@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-sm-6">
-        <a href="{{ route('persons.index') }}" class="btn btn-primary form-control">Nein, zurück</a>
+        <a href="{{ route('triggers.index') }}" class="btn btn-primary form-control">Nein, zurück</a>
     </div>
 </div>
 

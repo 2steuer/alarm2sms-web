@@ -55,7 +55,7 @@ abstract class CrudController extends Controller {
             return redirect()->action($this->plural.'.create');
         }
         else if(Request::has('submit_view')) {
-            return redirect()->route($this->plural.'.show', [$obj->id]);
+            return redirect()->route($this->plural.'.edit', [$obj->id]);
         }
         else {
             abort(404);

@@ -13,3 +13,11 @@
         {!! Form::textarea('description', null, ['class'=>'form-control', 'placeholder'=>'Beschreibung']) !!}
     </div>
 </div>
+
+<div class="form-group">
+    {!! Form::label('trigger_text', 'Auslösertext', ['class'=>'col-sm-2 form-label']) !!}
+
+    <div class="col-sm-10">
+        {!! Form::text('trigger_text', null, ['class'=>'form-control', 'placeholder'=>'Auslösertext']) !!}
+    </div>
+</div>

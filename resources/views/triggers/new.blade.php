@@ -1,12 +1,12 @@
-@extends('groups.main')
+@extends('triggers.main')
 
-@section('title') Gruppe anlegen @stop
+@section('title') Auslöser anlegen @stop
 
 @section('content')
-<h2>Gruppe anlegen</h2>
-{!! Form::open(['route' => 'groups.store', 'method'=>'post', 'class'=>'form-horizontal']) !!}
+<h2>Auslöser anlegen</h2>
+{!! Form::open(['route' => 'triggers.store', 'method'=>'post', 'class'=>'form-horizontal']) !!}
 
-@include('groups.partials.form')
+@include('triggers.partials.form')
 
 <div class="form-group">
     <div class="col-sm-4">
