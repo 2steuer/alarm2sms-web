@@ -19,4 +19,8 @@ class TriggerSlot extends Eloquent {
     public function scopeSpecials($query) {
         return $query->where('weekday', '<', 8);
     }
+
+    public function groups() {
+        return $this->belongsToMany('App\Models\Group')->withPivot(array('order'));
+    }
 }
