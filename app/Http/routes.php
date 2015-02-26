@@ -23,6 +23,10 @@ Route::get('groups/{id}/delete', ['as' => 'groups.delete', 'uses'=>'GroupsContro
 Route::resource('triggers', 'TriggersController');
 Route::get('triggers/{id}/delete', ['as' => 'triggers.delete', 'uses'=>'TriggersController@delete']);
 
+Route::get('triggers/{tid}/slots/create', ['as' => 'triggerslot.create', 'uses' => 'TriggersController@createslot']);
+Route::post('triggers/{tid}/slots/store', ['as' => 'triggerslot.store', 'uses' => 'TriggersController@storeslot']);
+Route::get('triggers/{tid}/slots/{sid}/edit', ['as' => 'triggerslot.edit', 'uses' => 'TriggersController@editslot']);
+Route::put('triggers/{tid}/slots/{sid}/update', ['as' => 'triggerslot.update', 'uses' => 'TriggersController@updateslot']);
 
 /*Route::controllers([
 	'auth' => 'Auth\AuthController',

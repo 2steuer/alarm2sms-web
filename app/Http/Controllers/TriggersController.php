@@ -18,6 +18,16 @@ class TriggersController extends CrudController {
     }
 
 
+    public function edit($id) {
+        $trigger = Trigger::findOrFail($id);
+        $defaultSlot = $trigger->triggerslots()->default()->get()->first();
+        $specialSlots = $trigger->triggerslots()->specials()->get();
+
+        $params = ['trigger' => $trigger, 'defaultSlot' => $defaultSlot, 'specialSlots' => $specialSlots];
+
+        return view('triggers.edit', $params);
+    }
+
     public function store() {
         $data = Request::all();
 
@@ -27,7 +37,7 @@ class TriggersController extends CrudController {
         $slot->text = 'Alarmierungstext';
         $slot->weekday = 8;
         $slot->start = '0:00';
-        $slot->end = '23:59';
+        $slot->end = '23:59:59';
         $slot->save();
 
         $obj->triggerslots()->save($slot);
@@ -53,5 +63,38 @@ class TriggersController extends CrudController {
         $trigger->triggerslots()->get()->each(function($slot) {
                 $slot->delete();
             });
+    }
+
+    public function createslot($tid) {
+        return view('triggers.createslot', ['triggerId' => $tid]);
+    }
+
+    public function storeslot($tid) {
+        $newslot = TriggerSlot::create(Request::all());
+
+        $trigger = Trigger::findOrFail($tid);
+        $trigger->triggerslots()->save($newslot);
+
+        Session::flash('flash_message', 'Abweichende Alarmierung erstellt.');
+
+        if(Request::has('submit_back')) {
+            return redirect()->route('triggers.edit', [$tid]);
+        }
+        else if(Request::has('submit_edit')) {
+            return redirect()->route('triggerslot.edit', [$tid, $newslot->id]);
+        }
+        else {
+            abort(404);
+            return;
+        }
+    }
+
+    public function updateslot($tid, $sid) {
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+        $slot->update(Request::all());
+
+        Session::flash('flash_message', 'Änderung gespeicher.');
+
+        return redirect()->route('triggers.edit', $tid);
     }
 }

@@ -11,4 +11,12 @@ class TriggerSlot extends Eloquent {
     public function trigger() {
         return $this->belongsTo('App\Models\Trigger');
     }
+
+    public function scopeDefault($query) {
+        return $query->where('weekday', '=', 8);
+    }
+
+    public function scopeSpecials($query) {
+        return $query->where('weekday', '<', 8);
+    }
 }
