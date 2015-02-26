@@ -21,7 +21,7 @@ class TriggersController extends CrudController {
     public function edit($id) {
         $trigger = Trigger::findOrFail($id);
         $defaultSlot = $trigger->triggerslots()->default()->get()->first();
-        $specialSlots = $trigger->triggerslots()->specials()->get();
+        $specialSlots = $trigger->triggerslots()->specials()->orderBy('weekday', 'asc')->orderBy('start', 'asc')->get();
 
         $params = ['trigger' => $trigger, 'defaultSlot' => $defaultSlot, 'specialSlots' => $specialSlots];
 
@@ -89,11 +89,31 @@ class TriggersController extends CrudController {
         }
     }
 
+    public function editslot($tid, $sid) {
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+        return view('triggers.editslot', ['triggerId' => $tid, 'slot' => $slot]);
+    }
+
     public function updateslot($tid, $sid) {
         $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
         $slot->update(Request::all());
 
         Session::flash('flash_message', 'Änderung gespeicher.');
+
+        return redirect()->route('triggers.edit', $tid);
+    }
+
+    public function deleteslot($tid, $sid) {
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+
+        return view('triggers.deleteslot', ['triggerId' => $tid, 'slot' => $slot]);
+    }
+
+    public function destroyslot($tid, $sid) {
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+        $slot->delete();
+
+        Session::flash('flash_message', 'Abweichende Alarmierung gelöscht.');
 
         return redirect()->route('triggers.edit', $tid);
     }

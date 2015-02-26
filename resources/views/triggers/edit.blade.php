@@ -66,6 +66,9 @@
                 <td>{{ Helper::getWeekday($slot->weekday) }}</td>
                 <td>{{ $slot->start }}</td>
                 <td>{{ $slot->end }}</td>
+                <td><a href="{{ route('triggerslot.edit', [$trigger->id, $slot->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="{{ route('triggerslot.delete', [$trigger->id, $slot->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
             </tr>
         @endforeach
     </tbody>
