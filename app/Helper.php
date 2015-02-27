@@ -1,5 +1,7 @@
 <?php namespace App;
 
+use App\Models\Group;
+
 class Helper {
     protected $weekdays = array(
         1 => 'Montag',
@@ -16,5 +18,9 @@ class Helper {
 
     public function getWeekdays() {
         return $this->weekdays;
+    }
+
+    public function getGroups() {
+        return Group::orderBy('name', 'asc')->lists('name', 'id');
     }
 }

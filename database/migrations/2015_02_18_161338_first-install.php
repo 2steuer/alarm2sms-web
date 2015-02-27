@@ -56,7 +56,7 @@ class FirstInstall extends Migration {
 
         Schema::create('group_triggerslot', function(Blueprint $table) {
                 $table->integer('group_id')->unsigned();
-                $table->integer('triggerslor_id')->unsigned();
+                $table->integer('triggerslot_id')->unsigned();
                 $table->integer('order');
                 $table->foreign('group_id')->references('id')->on('groups');
             });
@@ -74,7 +74,7 @@ class FirstInstall extends Migration {
 	    Schema::drop('group_person');
         Schema::drop('group_triggerslot');
         Schema::drop('triggerslots');
-        Schema::drop('trigger');
+        Schema::drop('triggers');
         Schema::drop('groups');
         Schema::drop('persons');
 	}

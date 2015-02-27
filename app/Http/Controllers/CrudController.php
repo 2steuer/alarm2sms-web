@@ -52,7 +52,7 @@ abstract class CrudController extends Controller {
             return redirect()->route($this->plural.'.index');
         }
         else if(Request::has('submit_new')) {
-            return redirect()->action($this->plural.'.create');
+            return redirect()->route($this->plural.'.create');
         }
         else if(Request::has('submit_view')) {
             return redirect()->route($this->plural.'.edit', [$obj->id]);

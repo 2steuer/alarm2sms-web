@@ -7,6 +7,7 @@ use App\Models\Trigger;
 use App\Models\TriggerSlot;
 use Request;
 use Session;
+use App\Models\Group;
 
 class TriggersController extends CrudController {
 
@@ -91,7 +92,7 @@ class TriggersController extends CrudController {
 
     public function editslot($tid, $sid) {
         $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
-        return view('triggers.editslot', ['triggerId' => $tid, 'slot' => $slot]);
+        return view('triggers.editslot', ['triggerId' => $tid, 'slot' => $slot, 'groups' => $slot->groups()->orderBy('pivot_order', 'asc')->get()]);
     }
 
     public function updateslot($tid, $sid) {
@@ -116,5 +117,33 @@ class TriggersController extends CrudController {
         Session::flash('flash_message', 'Abweichende Alarmierung gelöscht.');
 
         return redirect()->route('triggers.edit', $tid);
+    }
+
+    // CRUD over... now Group-Management on TriggerSlots...
+
+    public function slotaddgroup($tid, $sid) {
+        $group = Group::findOrFail(Request::input('group_id'));
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+        $num = $slot->groups->count() + 1;
+
+        if($slot->groups->contains($group->id)) {
+            Session::flash('flash_message', 'Gruppe ist der Alarmierung bereits zugeordnet.');
+            Session::flash('flash_message_class', 'alert-danger');
+        }
+        else {
+            $slot->groups()->attach($group, ['order' => $num]);
+            Session::flash('flash_message', 'Gruppe zugeordnet.');
+        }
+
+        if(Request::has('submit_slotedit')) {
+            return redirect()->route('triggerslot.edit', [$tid, $sid]);
+        }
+        else if(Request::has('submit_triggeredit')) {
+            return redirect()->route('trigger.edit', [$tid]);
+        }
+        else {
+            abort(404);
+            return;
+        }
     }
 }

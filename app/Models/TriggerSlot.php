@@ -21,6 +21,6 @@ class TriggerSlot extends Eloquent {
     }
 
     public function groups() {
-        return $this->belongsToMany('App\Models\Group')->withPivot(array('order'));
+        return $this->belongsToMany('App\Models\Group', 'group_triggerslot', 'triggerslot_id')->withPivot(array('order'));
     }
 }
