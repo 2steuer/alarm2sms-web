@@ -20,6 +20,11 @@ Route::get('persons/{id}/delete', ['as' => 'persons.delete', 'uses'=>'PersonsCon
 Route::resource('groups', 'GroupsController');
 Route::get('groups/{id}/delete', ['as' => 'groups.delete', 'uses'=>'GroupsController@delete']);
 
+Route::put('groups/{gid}/persons/add', ['as' => 'groups.addperson', 'uses' => 'GroupsController@addperson']);
+Route::get('groups/{gid}/persons/{pid}/move/{dir}', ['as' => 'groups.moveperson', 'uses' => 'GroupsController@moveperson']);
+Route::get('groups/{gid}/persons/{pid}/delete', ['as' => 'groups.deleteperson', 'uses' => 'GroupsController@deleteperson']);
+
+
 Route::resource('triggers', 'TriggersController');
 Route::get('triggers/{id}/delete', ['as' => 'triggers.delete', 'uses'=>'TriggersController@delete']);
 

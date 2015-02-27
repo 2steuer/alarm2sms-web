@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use App\Models\Group;
+use App\Models\Person;
 
 class Helper {
     protected $weekdays = array(
@@ -22,6 +23,10 @@ class Helper {
 
     public function getGroups($ignoreGroups) {
         return Group::orderBy('name', 'asc')->get()->diff($ignoreGroups)->lists('name', 'id');
+    }
+
+    public function getPersons($excludePersons) {
+        return Person::orderBy('name', 'asc')->get()->diff($excludePersons)->lists('name', 'id');
     }
 
     public function getPositionStrings($maxPosition) {
