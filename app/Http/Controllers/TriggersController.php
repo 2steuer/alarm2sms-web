@@ -150,7 +150,7 @@ class TriggersController extends CrudController {
             return redirect()->route('triggerslot.edit', [$tid, $sid]);
         }
         else if(Request::has('submit_triggeredit')) {
-            return redirect()->route('trigger.edit', [$tid]);
+            return redirect()->route('triggers.edit', [$tid]);
         }
         else {
             abort(404);
@@ -158,7 +158,7 @@ class TriggersController extends CrudController {
         }
     }
 
-    public function slotmovegroup($tid, $sid, $gid, $dir) {
+    public function slotmovegroup($tid, $sid, $gid, $dir, $backPage = 's') {
         $oldOrder = DB::table('group_triggerslot')->where('group_id', $gid)->where('triggerslot_id', $sid)->pluck('order');
 
         if($dir == 'up') {
@@ -174,15 +174,26 @@ class TriggersController extends CrudController {
             }
         }
 
-        return redirect()->route('triggerslot.edit', [$tid, $sid]);
+        switch($backPage) {
+            case 's':
+                return redirect()->route('triggerslot.edit', [$tid, $sid]);
+            case 't':
+                return redirect()->route('triggers.edit', [$tid]);
+        }
+
     }
 
-    public function slotdeletegroup($tid, $sid, $gid) {
+    public function slotdeletegroup($tid, $sid, $gid, $backPage = 's') {
         $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
         $slot->groups()->detach($gid);
 
         Session::flash('flash_message', 'Gruppe aus Alarmierung entfernt.');
 
-        return redirect()->route('triggerslot.edit', [$tid, $sid]);
+        switch($backPage) {
+            case 's':
+                return redirect()->route('triggerslot.edit', [$tid, $sid]);
+            case 't':
+                return redirect()->route('triggers.edit', [$tid]);
+        }
     }
 }

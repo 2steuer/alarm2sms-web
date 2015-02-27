@@ -44,8 +44,10 @@
 
 {!! Form::close() !!}
 
-<h3>Alarmierte Gruppen</h3>
+@include('triggers.partials.slotgroups', ['redirectSubmitName' => 'submit_triggeredit', 'backPage' => 't', 'slot' => $defaultSlot, 'groups' => $defaultSlot->groups()->orderBy('order', 'asc')->get(), 'triggerId' => $trigger->id])
 
+
+<hr />
 <h2>Abweichende Alarmierungen</h2>
 
 @if($specialSlots->count() > 0)
