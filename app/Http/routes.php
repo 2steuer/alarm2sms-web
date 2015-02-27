@@ -32,6 +32,7 @@ Route::delete('triggers/{tid}/slots/{sid}', ['as' => 'triggerslot.destroy', 'use
 
 Route::put('triggers/{tid}/slots/{sid}/addgroup', ['as' => 'triggerslot.addgroup', 'uses' => 'TriggersController@slotaddgroup']);
 Route::get('triggers/{tid}/slots/{sid}/movegroup/{gid}/{direction}', ['as' => 'triggerslot.movegroup', 'uses' => 'TriggersController@slotmovegroup']);
+Route::get('triggers/{tid}/slots/{sid}/deletegroup/{gid}', ['as' => 'triggerslot.deletegroup', 'uses' => 'TriggersController@slotdeletegroup']);
 
 /*Route::controllers([
 	'auth' => 'Auth\AuthController',

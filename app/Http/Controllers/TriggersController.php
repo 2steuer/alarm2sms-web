@@ -8,6 +8,7 @@ use App\Models\TriggerSlot;
 use Request;
 use Session;
 use App\Models\Group;
+use DB;
 
 class TriggersController extends CrudController {
 
@@ -124,14 +125,24 @@ class TriggersController extends CrudController {
     public function slotaddgroup($tid, $sid) {
         $group = Group::findOrFail(Request::input('group_id'));
         $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
-        $num = $slot->groups->count() + 1;
+
+        $num = Request::input('order');
+        $currentCount = $slot->groups()->count();
 
         if($slot->groups->contains($group->id)) {
             Session::flash('flash_message', 'Gruppe ist der Alarmierung bereits zugeordnet.');
             Session::flash('flash_message_class', 'alert-danger');
         }
         else {
+            if($num <= $currentCount) {
+                DB::table('group_triggerslot')
+                    ->where('triggerslot_id', $sid)
+                    ->where('order', '>=', $num)
+                    ->increment('order');
+            }
+
             $slot->groups()->attach($group, ['order' => $num]);
+
             Session::flash('flash_message', 'Gruppe zugeordnet.');
         }
 
@@ -145,5 +156,33 @@ class TriggersController extends CrudController {
             abort(404);
             return;
         }
+    }
+
+    public function slotmovegroup($tid, $sid, $gid, $dir) {
+        $oldOrder = DB::table('group_triggerslot')->where('group_id', $gid)->where('triggerslot_id', $sid)->pluck('order');
+
+        if($dir == 'up') {
+            if($oldOrder > 1) {
+                DB::table('group_triggerslot')->where('triggerslot_id', $sid)->where('order', $oldOrder - 1)->increment('order');
+                DB::table('group_triggerslot')->where('triggerslot_id', $sid)->where('group_id', $gid)->decrement('order');
+            }
+        }
+        else if($dir == 'down') {
+            if($oldOrder < TriggerSlot::findOrFail($sid)->groups()->count()) {
+                DB::table('group_triggerslot')->where('triggerslot_id', $sid)->where('order', $oldOrder + 1)->decrement('order');
+                DB::table('group_triggerslot')->where('triggerslot_id', $sid)->where('group_id', $gid)->increment('order');
+            }
+        }
+
+        return redirect()->route('triggerslot.edit', [$tid, $sid]);
+    }
+
+    public function slotdeletegroup($tid, $sid, $gid) {
+        $slot = Trigger::findOrFail($tid)->triggerslots()->findOrFail($sid);
+        $slot->groups()->detach($gid);
+
+        Session::flash('flash_message', 'Gruppe aus Alarmierung entfernt.');
+
+        return redirect()->route('triggerslot.edit', [$tid, $sid]);
     }
 }

@@ -24,7 +24,7 @@
 
 <hr />
 
-<h3>Standard-Alarmierung</h3>
+<h2>Standard-Alarmierung</h2>
 
 {!! Form::model($defaultSlot, ['route' => array('triggerslot.update', $trigger->id, $defaultSlot->id), 'method' => 'put', 'class'=>'form-horizontal']) !!}
 
@@ -44,9 +44,9 @@
 
 {!! Form::close() !!}
 
-<hr />
+<h3>Alarmierte Gruppen</h3>
 
-<h3>Abweichende Alarmierungen</h3>
+<h2>Abweichende Alarmierungen</h2>
 
 @if($specialSlots->count() > 0)
 

@@ -37,11 +37,15 @@
     @foreach($groups as $group)
     <tr>
         <td>{{ $group->pivot->order }}
-        <a href="{{ route('triggerslot.movegroup', [$triggerId, $slot->id, $group->id, 'up']) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a>
-        <a href="{{ route('triggerslot.movegroup', [$triggerId, $slot->id, $group->id, 'down']) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        @if($group->pivot->order > 1)
+            <a href="{{ route('triggerslot.movegroup', [$triggerId, $slot->id, $group->id, 'up']) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a>
+        @endif
+        @if($group->pivot->order < $groups->count())
+            <a href="{{ route('triggerslot.movegroup', [$triggerId, $slot->id, $group->id, 'down']) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        @endif
         </td>
         <td>{{ $group->name }}</td>
-        <td></td>
+        <td><a href="{{ route('triggerslot.deletegroup', [$triggerId, $slot->id, $group->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>
     </tr>
     @endforeach
     </tbody>
@@ -55,11 +59,15 @@
 {!! Form::open(['route' => ['triggerslot.addgroup', $triggerId, $slot->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
 <div class="form-group">
-    <div class="col-sm-6">
-        {!! Form::select('group_id', Helper::getGroups(), null, ['class'=>'form-control']) !!}
+    <div class="col-sm-4">
+        {!! Form::select('group_id', Helper::getGroups($groups), null, ['class'=>'form-control']) !!}
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+        {!! Form::select('order', Helper::getPositionStrings($groups->count() + 1), $groups->count() + 1, ['class' => 'col-sm-8 form-control']) !!}
+    </div>
+
+    <div class="col-sm-4">
         {!! Form::submit('Gruppe hinzufügen', ['name' => 'submit_slotedit', 'class' => 'btn btn-primary form-control']) !!}
     </div>
 </div>

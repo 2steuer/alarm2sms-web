@@ -20,7 +20,15 @@ class Helper {
         return $this->weekdays;
     }
 
-    public function getGroups() {
-        return Group::orderBy('name', 'asc')->lists('name', 'id');
+    public function getGroups($ignoreGroups) {
+        return Group::orderBy('name', 'asc')->get()->diff($ignoreGroups)->lists('name', 'id');
+    }
+
+    public function getPositionStrings($maxPosition) {
+        $ret = array();
+        for($i = 1; $i <= $maxPosition; $i++) {
+            $ret[$i] = 'Position '. $i;
+        }
+        return $ret;
     }
 }
