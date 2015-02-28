@@ -61,7 +61,7 @@
 
 <div class="form-group">
     <div class="col-sm-4">
-        {!! Form::select('person_id', Helper::getPersons($persons), null, ['class'=>'form-control']) !!}
+        {!! Form::select('person_id', Helper::getPersons($persons->get()), null, ['class'=>'form-control']) !!}
     </div>
 
     <div class="col-sm-4">
