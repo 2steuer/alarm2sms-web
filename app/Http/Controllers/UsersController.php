@@ -19,6 +19,10 @@ class UsersController extends CrudController {
         $this->humanName = 'Benutzer';
     }
 
+    public function create() {
+        return view('users.new', ['triggers' => Trigger::all()->lists('name', 'id')]);
+    }
+
     public function store() {
         $pwd = Hash::make(Request::input('password_u'));
 
