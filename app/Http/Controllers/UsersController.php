@@ -8,6 +8,7 @@ use Hash;
 use Request;
 use Session;
 use \App\Models\Trigger;
+use Auth;
 
 class UsersController extends CrudController {
 
@@ -31,7 +32,7 @@ class UsersController extends CrudController {
             $data['editusers'] = false;
 
         $obj = User::create($data);
-        $obj->allowedTriggers()->sync(Request::input('trigger_list'));
+        $obj->allowedTriggers()->sync((Request::has('trigger_list') ? Request::input('trigger_list') : []));
 
         Session::flash('flash_message', $this->humanName . ' angelegt.');
 
@@ -71,10 +72,40 @@ class UsersController extends CrudController {
 
         $obj = User::findOrFail($id);
         $obj->update($data);
-        $obj->allowedTriggers()->sync(Request::input('trigger_list'));
+        $obj->allowedTriggers()->sync((Request::has('trigger_list') ? Request::input('trigger_list') : []));
 
         Session::flash('flash_message', 'Änderungen gespeichert.');
 
         return redirect()->route($this->plural.'.index');
+    }
+
+    /*
+     * Login functionality
+     */
+
+    public function loginForm() {
+        return view('users.login');
+    }
+
+    public function login(\Illuminate\Http\Request $request) {
+        $this->validate($request, ['email' => 'required|email', 'password' => 'required']);
+
+        $cred = Request::only('email', 'password');
+        $remember = Request::has('remember');
+
+        if(Auth::attempt($cred, $remember)) {
+            Session::flash('flash_message', 'Login erfolgreich.');
+
+            return redirect()->route('alarm.index');
+        }
+        else {
+            return redirect()->route('users.loginform')->withInput(Request::only(['email', 'remember']))->withErrors(['email' => 'Login fehlgeschlagen.']);
+        }
+    }
+
+    public function logout() {
+        Auth::logout();
+
+        return redirect()->route('users.loginform');
     }
 }

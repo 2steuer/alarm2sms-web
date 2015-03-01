@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-Route::get('home', 'WelcomeController@index');
+Route::get('/', function() {
+    return redirect()->route('alarm.index');
+});
+
+Route::get('users/login', ['as' => 'users.loginform', 'uses' => 'UsersController@loginForm']);
+Route::post('users/login', ['as' => 'users.login', 'uses' => 'UsersController@login']);
+Route::get('users/logout', ['as' => 'users.logout', 'uses' => 'UsersController@logout']);
 
 Route::resource('users', 'UsersController');
 Route::get('users/{id}/delete', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);
@@ -41,3 +46,7 @@ Route::delete('triggers/{tid}/slots/{sid}', ['as' => 'triggerslot.destroy', 'use
 Route::put('triggers/{tid}/slots/{sid}/addgroup', ['as' => 'triggerslot.addgroup', 'uses' => 'TriggersController@slotaddgroup']);
 Route::get('triggers/{tid}/slots/{sid}/movegroup/{gid}/{direction}/{backPage}', ['as' => 'triggerslot.movegroup', 'uses' => 'TriggersController@slotmovegroup']);
 Route::get('triggers/{tid}/slots/{sid}/deletegroup/{gid}/{backPage}', ['as' => 'triggerslot.deletegroup', 'uses' => 'TriggersController@slotdeletegroup']);
+
+Route::get('alarm', ['as' => 'alarm.index', 'uses' => 'AlarmController@index']);
+Route::get('alarm/trigger/{id}/free', ['as' => 'alarm.freetext', 'uses' => 'AlarmController@freetext']);
+Route::get('alarm/trigger/{id}', ['as' => 'alarm.standart', 'uses' => 'AlarmController@standard']);

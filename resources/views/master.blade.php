@@ -46,6 +46,14 @@
             <div class="alert {{ Session::has('flash_message_class') ? Session::get('flash_message_class') : 'alert-success' }}">{{ Session::get('flash_message') }}</div>
             @endif
 
+            @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+            @endif
+
             @yield('content')
         </div>
     </div>
