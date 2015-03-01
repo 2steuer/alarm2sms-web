@@ -21,3 +21,11 @@
         {!! Form::select('flash', ['0' => 'Nein', '1' => 'Ja'], '1', ['class' => 'form-control']) !!}
     </div>
 </div>
+
+<div class="form-group">
+    {!! Form::label('group_list', 'Gruppen', ['class'=>'col-sm-2 form-label']) !!}
+
+    <div class="col-sm-10">
+        {!! Form::select('group_list[]', Helper::getGroups([]), null, ['class' => 'form-control', 'multiple']) !!}
+    </div>
+</div>

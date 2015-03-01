@@ -11,6 +11,10 @@ class Person extends Eloquent {
     protected $fillable = ['name', 'number', 'flash'];
 
     public function groups() {
-        return $this->belongsToMany('Group');
+        return $this->belongsToMany('\App\Models\Group');
+    }
+
+    public function getGroupListAttribute() {
+        return $this->groups()->lists('id');
     }
 }
