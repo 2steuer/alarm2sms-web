@@ -2,7 +2,7 @@
 
 @section('content')
 <p class="text-danger">Die Person <b>{{ $person->name }}</b> wirklich aus dem System löschen?</p>
-{!! Form::open(['route' => ['persons.destroy', $person->id], 'method' => 'delete', 'class'=>'form-hordddddddizontal']) !!}
+{!! Form::open(['route' => ['persons.destroy', $person->id], 'method' => 'delete', 'class'=>'form-horizontal']) !!}
 
 <div class="form-group">
     <div class="col-sm-6">

@@ -14,6 +14,9 @@
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'WelcomeController@index');
 
+Route::resource('users', 'UsersController');
+Route::get('users/{id}/delete', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);
+
 Route::resource('persons', 'PersonsController');
 Route::get('persons/{id}/delete', ['as' => 'persons.delete', 'uses'=>'PersonsController@delete']);
 
