@@ -49,7 +49,7 @@ class AlarmController extends Controller {
         return view('alarm.triggerfreetext', ['trigger' => $trigger]);
     }
 
-    public function trigger($id, $mode) {
+    public function trigger(\Illuminate\Http\Request $request, $id, $mode) {
         $user = Auth::user();
 
         if($user->admin) {
@@ -57,6 +57,10 @@ class AlarmController extends Controller {
         }
         else {
             $trigger = $user->allowedTriggers()->findOrFail($id);
+        }
+
+        if($mode == 'freetext') {
+            $this->validate($request, ['text' => 'required|min:5']);
         }
 
         Session::flash('flash_message', "Auslöser ". $trigger->name." alarmiert.");
