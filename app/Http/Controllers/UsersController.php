@@ -63,10 +63,11 @@ class UsersController extends CrudController {
     }
 
     public function update($id) {
-        $pwd = Hash::make(Request::input('password_u'));
-
         $data = Request::only(['name', 'email', 'admin', 'editusers']);
-        $data['password'] = $pwd;
+
+        if(Request::has('password_u')) {
+            $data['password'] = Hash::make(Request::input('password_u'));
+        }
 
         if(!Request::has('admin'))
             $data['admin'] = false;

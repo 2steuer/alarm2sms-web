@@ -15,12 +15,16 @@ Route::get('/', function() {
     return redirect()->route('alarm.index');
 });
 
+//Everyone can login
+
 Route::get('users/login', ['as' => 'users.loginform', 'uses' => 'UsersController@loginForm']);
 Route::post('users/login', ['as' => 'users.login', 'uses' => 'UsersController@login']);
 
+//For the rest, Authentication is required...
 Route::group(['middleware' => 'auth'], function() {
     Route::get('users/logout', ['as' => 'users.logout', 'uses' => 'UsersController@logout']);
 
+    // Low level Management needs Admin privileges
     Route::group(['middleware' => 'admin'], function() {
         Route::resource('users', 'UsersController');
         Route::get('users/{id}/delete', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);
@@ -40,6 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('triggers/{tid}/slots/{sid}/deletegroup/{gid}/{backPage}', ['as' => 'triggerslot.deletegroup', 'uses' => 'TriggersController@slotdeletegroup']);
     });
 
+    //Some users may edit Groups and Users
     Route::group(['middleware' => 'editusers'], function() {
         Route::resource('persons', 'PersonsController');
         Route::get('persons/{id}/delete', ['as' => 'persons.delete', 'uses'=>'PersonsController@delete']);
