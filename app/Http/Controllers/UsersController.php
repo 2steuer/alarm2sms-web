@@ -71,9 +71,6 @@ class UsersController extends CrudController {
 
         $obj = User::findOrFail($id);
         $obj->update($data);
-
-        dd($obj->getTriggerListAttribute());
-
         $obj->allowedTriggers()->sync(Request::input('trigger_list'));
 
         Session::flash('flash_message', 'Änderungen gespeichert.');

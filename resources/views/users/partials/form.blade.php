@@ -39,9 +39,10 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('trigger_list[]', 'Alarmierbare Auslöser', ['class' => 'col-sm-2 form-label']) !!}
+    {!! Form::label('trigger_list', 'Alarmierbare Auslöser', ['class' => 'col-sm-2 form-label']) !!}
 
     <div class="col-sm-10">
         {!! Form::select('trigger_list[]', $triggers, null, ['class'=>'form-control', 'multiple'=>'multiple']) !!}
     </div>
 </div>
+

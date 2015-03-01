@@ -36,6 +36,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	public function getTriggerListAttribute() {
-		$this->allowedTriggers->lists('name', 'id');
+		return $this->allowedTriggers->lists('id');
 	}
 }
