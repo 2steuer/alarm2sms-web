@@ -20,7 +20,7 @@
             <td>{{ $trigger->name }}</td>
             <td>
                 <a href="{{ route('alarm.standart', [$trigger->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-flash"></span> Standardtext</a>
-                <a href="{{ route('alarm.freetext', [$trigger->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Fretext</a>
+                <a href="{{ route('alarm.freetext', [$trigger->id]) }}" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Freitext</a>
             </td>
         </tr>
         @endforeach

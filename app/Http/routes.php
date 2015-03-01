@@ -59,7 +59,8 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
     Route::get('alarm', ['as' => 'alarm.index', 'uses' => 'AlarmController@index']);
-    Route::get('alarm/trigger/{id}/free', ['as' => 'alarm.freetext', 'uses' => 'AlarmController@freetext']);
-    Route::get('alarm/trigger/{id}', ['as' => 'alarm.standart', 'uses' => 'AlarmController@standard']);
+    Route::post('alarm/trigger/{id}/{mode}', ['as' => 'alarm.trigger', 'uses' => 'AlarmController@trigger']);
+    Route::get('alarm/{id}/free', ['as' => 'alarm.freetext', 'uses' => 'AlarmController@freetext']);
+    Route::get('alarm/{id}', ['as' => 'alarm.standart', 'uses' => 'AlarmController@standard']);
 
 });
