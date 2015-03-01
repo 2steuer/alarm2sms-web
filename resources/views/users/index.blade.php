@@ -20,7 +20,7 @@
             <td>{{ $user->name }}</td>
             <td>
                 @if($user->admin)
-                <span class="glyphicon glyphicon-check"></span>
+                <span class="glyphicon glyphicon-ok"></span>
                 @else
                 <span class="glyphicon glyphicon-remove"></span>
                 @endif
