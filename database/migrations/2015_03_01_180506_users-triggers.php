@@ -19,6 +19,10 @@ class UsersTriggers extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 		});
+
+		Schema::table('users', function(Blueprint $table) {
+			$table->boolean('editusers')->default(false);
+		});
 	}
 
 	/**
@@ -28,6 +32,10 @@ class UsersTriggers extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('users', function(Blueprint $table) {
+			$table->removeColumn('editusers');
+		});
+
 		Schema::drop('trigger_user');
 	}
 

@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password', 'admin'];
+	protected $fillable = ['name', 'email', 'password', 'admin', 'editusers'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -35,4 +35,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->belongsToMany('\App\Models\Trigger');
 	}
 
+	public function getTriggerListAttribute() {
+		$this->allowedTriggers->lists('name', 'id');
+	}
 }

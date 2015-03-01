@@ -7,6 +7,7 @@ use \App\User;
 use Hash;
 use Request;
 use Session;
+use \App\Models\Trigger;
 
 class UsersController extends CrudController {
 
@@ -20,13 +21,17 @@ class UsersController extends CrudController {
     public function store() {
         $pwd = Hash::make(Request::input('password_u'));
 
-        $data = Request::only(['name', 'email', 'admin']);
+        $data = Request::only(['name', 'email', 'admin', 'editusers']);
         $data['password'] = $pwd;
 
         if(!Request::has('admin'))
             $data['admin'] = false;
 
+        if(!Request::has('editusers'))
+            $data['editusers'] = false;
+
         $obj = User::create($data);
+        $obj->allowedTriggers()->sync(Request::input('trigger_list'));
 
         Session::flash('flash_message', $this->humanName . ' angelegt.');
 
@@ -45,16 +50,31 @@ class UsersController extends CrudController {
         }
     }
 
+    public function edit($id) {
+        $user = User::findOrFail($id);
+        $triggers = Trigger::all()->lists('name', 'id');
+
+        return view('users.edit', ['user' => $user, 'triggers' => $triggers]);
+    }
+
     public function update($id) {
         $pwd = Hash::make(Request::input('password_u'));
 
-        $data = Request::only(['name', 'email', 'admin']);
+        $data = Request::only(['name', 'email', 'admin', 'editusers']);
         $data['password'] = $pwd;
 
         if(!Request::has('admin'))
             $data['admin'] = false;
 
+        if(!Request::has('editusers'))
+            $data['editusers'] = false;
+
         $obj = User::findOrFail($id);
+        $obj->update($data);
+
+        dd($obj->getTriggerListAttribute());
+
+        $obj->allowedTriggers()->sync(Request::input('trigger_list'));
 
         Session::flash('flash_message', 'Änderungen gespeichert.');
 
