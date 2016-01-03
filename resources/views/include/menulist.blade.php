@@ -11,6 +11,7 @@
         @if(Auth::user()->admin)
             <li class="{{ Request::segment(1) == 'users' ? 'active' : false }}"><a href="{{ route('users.index') }}">Benutzer</a> </li>
             <li class="{{ Request::segment(1) == 'triggers' ? 'active' : false }}"><a href="{{ route('triggers.index') }}">Auslöser</a></li>
+            <li class="{{ Request::segment(1) == 'apikeys' ? 'active' : false }}"><a href="{{ route('apikeys.index') }}">API-Keys</a></li>
         @endif
         <li><a href="{{ route('users.logout') }}">Ausloggen</a></li>
     @endif

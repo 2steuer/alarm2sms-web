@@ -29,6 +29,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('users', 'UsersController');
         Route::get('users/{id}/delete', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);
 
+        Route::resource('apikeys', 'ApiKeysController');
+        Route::get('apikeys/{id}/delete', ['as' => 'apikeys.delete', 'uses' => 'ApiKeysController@delete']);
+
         Route::resource('triggers', 'TriggersController');
         Route::get('triggers/{id}/delete', ['as' => 'triggers.delete', 'uses'=>'TriggersController@delete']);
 
