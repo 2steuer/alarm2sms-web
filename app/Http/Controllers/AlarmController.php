@@ -67,17 +67,22 @@ class AlarmController extends Controller {
 
 
         $dom = new \DOMDocument();
-        $root = $dom->createElement("Trigger");
+        $root = $dom->createElement("Request");
         $root->appendChild($dom->createElement('ApiKey', env('ALARM_API_KEY')));
-        $root->appendChild($dom->createElement('TriggerName', $trigger->trigger_text));
+        $root->appendChild($dom->createElement('Type', 'TriggerRequest'));
+
+        $request = $dom->createElement("TriggerRequest");
+        $request->appendChild($dom->createElement('TriggerName', $trigger->trigger_text));
 
         if($mode == 'freetext') {
             $this->validate($request, ['text' => 'required|min:5']);
-            $root->appendChild($dom->createElement('Message', $request->get('text')));
+            $request->appendChild($dom->createElement('SendDefaultMessage', 'False'));
+            $request->appendChild($dom->createElement('Message', $request->get('text')));
         }
+        $root->appendChild($request);
         $dom->appendChild($root);
 
-        $http = env('ALARM_SERVER') . '/alarm';
+        $http = env('ALARM_SERVER');
         $user = env('ALARM_USER');
         $pass = env('ALARM_PASS');
 
