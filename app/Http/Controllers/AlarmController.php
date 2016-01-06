@@ -72,7 +72,7 @@ class AlarmController extends Controller {
         $root->appendChild($dom->createElement('Type', 'TriggerRequest'));
 
         $request = $dom->createElement("TriggerRequest");
-        $request->appendChild($dom->createElement('TriggerName', $trigger->trigger_text));
+        $request->appendChild($dom->createElement('TriggerText', $trigger->trigger_text));
 
         if($mode == 'freetext') {
             $this->validate($request, ['text' => 'required|min:5']);
