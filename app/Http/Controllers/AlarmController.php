@@ -55,7 +55,7 @@ class AlarmController extends Controller {
         return view('alarm.triggerfreetext', ['trigger' => $trigger]);
     }
 
-    public function trigger(\Illuminate\Http\Request $request, $id, $mode) {
+    public function trigger(\Illuminate\Http\Request $requestNode, $id, $mode) {
         $user = Auth::user();
 
         if($user->admin) {
@@ -71,15 +71,15 @@ class AlarmController extends Controller {
         $root->appendChild($dom->createElement('ApiKey', env('ALARM_API_KEY')));
         $root->appendChild($dom->createElement('Type', 'TriggerRequest'));
 
-        $request = $dom->createElement("TriggerRequest");
-        $request->appendChild($dom->createElement('TriggerText', $trigger->trigger_text));
+        $requestNode = $dom->createElement("TriggerRequest");
+        $requestNode->appendChild($dom->createElement('TriggerText', $trigger->trigger_text));
 
         if($mode == 'freetext') {
             $this->validate($request, ['text' => 'required|min:5']);
-            $request->appendChild($dom->createElement('SendDefaultMessage', 'False'));
-            $request->appendChild($dom->createElement('Message', $request->get('text')));
+            $requestNode->appendChild($dom->createElement('SendDefaultMessage', 'False'));
+            $requestNode->appendChild($dom->createElement('Message', $requestNode->get('text')));
         }
-        $root->appendChild($request);
+        $root->appendChild($requestNode);
         $dom->appendChild($root);
 
         $http = env('ALARM_SERVER');
