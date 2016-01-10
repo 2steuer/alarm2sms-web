@@ -49,7 +49,7 @@ class AlarmController extends Controller {
             $trigger = Trigger::findOrFail($id);
         }
         else {
-            $trigger = $user->allowedTriggers()-findOrFail($id);
+            $trigger = $user->allowedTriggers()->findOrFail($id);
         }
 
         return view('alarm.triggerfreetext', ['trigger' => $trigger]);
